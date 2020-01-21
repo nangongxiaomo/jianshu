@@ -1,14 +1,14 @@
-import styled from 'styled-components'
-import logo from '../../assets/images/logo.png'
+import styled from "styled-components";
+import logo from "../../assets/images/logo.png";
 
-export const HeaderWrapper = styled('div')`
+export const HeaderWrapper = styled("div")`
   position: relative;
   height: 58px;
   border-bottom: 1px solid #f0f0f0;
-`
+`;
 
-export const Logo = styled('a').attrs({
-  href: '/'
+export const Logo = styled("a").attrs({
+  href: "/"
 })`
   position: absolute;
   display: block;
@@ -18,14 +18,14 @@ export const Logo = styled('a').attrs({
   height: 58px;
   background: url(${logo});
   background-size: contain;
-`
+`;
 
-export const HeadHav = styled('div')`
+export const HeadHav = styled("div")`
   width: 960px;
   height: 100%;
   margin: 0 auto;
-`
-export const HeadNavItem = styled('div')`
+`;
+export const HeadNavItem = styled("div")`
   line-height: 58px;
   padding: 0 15px;
   font-size: 18px;
@@ -43,9 +43,9 @@ export const HeadNavItem = styled('div')`
       font-size: 24px;
     }
   }
-`
+`;
 
-export const SearchWrapper = styled('div')`
+export const SearchWrapper = styled("div")`
   display: inline-block;
   position: relative;
   height: 38px;
@@ -70,9 +70,9 @@ export const SearchWrapper = styled('div')`
       background-color: #666;
     }
   }
-`
+`;
 
-export const SearchContent = styled('div')`
+export const SearchContent = styled("div")`
   position: absolute;
   left: 0;
   top: 56px;
@@ -81,25 +81,49 @@ export const SearchContent = styled('div')`
   border: 1px solid #eeeeee;
   border-radius: 4px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  &.alert-enter {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  &.alert-enter-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition: opacity 300ms, transform 300ms;
-  }
-  &.alert-exit {
-    opacity: 1;
-  }
-  &.alert-exit-active {
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 300ms, transform 300ms;
-  }
+  .fade-enter {
+  opacity: 0;
+}
+
+/*入场动画过程*/
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+/*入场动画结束*/
+.fade-enter-done {
+  opacity: 1;
+}
+
+/*离场动画开始*/
+&.fade-exit {
+  opacity: 1;
+}
+
+/*离场动画过程*/
+&.fade-exit-active {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+/*离场动画结束*/
+&.fade-exit-done {
+  opacity: 0;
+}
+
+/*页面第一次加载时的开始状态*/
+&.fade-appear {
+  opacity: 0;
+}
+
+/*页面第一次加载时的动画过程*/
+&.fade-appear-active {
+  opacity: 1;
+  transition: opacity 2s ease-in;
+}
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: -15px;
     width: 0;
@@ -108,29 +132,29 @@ export const SearchContent = styled('div')`
     border-width: 0 7.5px 15px 7.5px;
     border-color: transparent transparent #fff transparent;
   }
-`
+`;
 
-export const SearchContentTitle = styled('p')`
+export const SearchContentTitle = styled("p")`
   margin-top: 20px;
   margin-bottom: 10px;
   font-size: 14px;
   color: #969696;
-`
+`;
 
-export const SearchContentSwitch = styled('span')`
+export const SearchContentSwitch = styled("span")`
   margin-bottom: 10px;
   font-size: 13px;
   color: #969696;
   float: right;
-`
+`;
 
-export const SearchItemWrapper = styled('div')`
+export const SearchItemWrapper = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-`
+`;
 
-export const SearchItem = styled('a')`
+export const SearchItem = styled("a")`
   display: block;
   padding: 3px 5px;
   font-size: 12px;
@@ -139,11 +163,11 @@ export const SearchItem = styled('a')`
   border-radius: 3px;
   margin-right: 7px;
   margin-bottom: 10px;
-`
+`;
 
-export const NavSearch = styled('input').attrs({
-  placeholder: '搜索',
-  type: 'text'
+export const NavSearch = styled("input").attrs({
+  placeholder: "搜索",
+  type: "text"
 })`
   width: 160px;
   height: 38px;
@@ -171,16 +195,16 @@ export const NavSearch = styled('input').attrs({
   &.focus {
     width: 220px;
   }
-`
+`;
 
-export const Addition = styled('div')`
+export const Addition = styled("div")`
   position: absolute;
   top: 0;
   right: 0;
   height: 56px;
-`
+`;
 
-export const Button = styled('div')`
+export const Button = styled("div")`
   line-height: 38px;
   float: right;
   border-radius: 19px;
@@ -200,4 +224,4 @@ export const Button = styled('div')`
       padding-right: 5px;
     }
   }
-`
+`;
