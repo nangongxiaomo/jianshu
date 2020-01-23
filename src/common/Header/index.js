@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   HeaderWrapper,
   Logo,
@@ -14,21 +14,15 @@ import {
   SearchContentSwitch,
   SearchItemWrapper,
   SearchItem
-} from "./style";
-import { CSSTransition } from "react-transition-group";
-import { actionCreators } from "./store";
+} from './style'
+import { CSSTransition } from 'react-transition-group'
+import { actionCreators } from './store'
 
 class Header extends Component {
   showSearchArea = show => {
     if (show) {
       return (
-        <CSSTransition
-          appear
-          timeout={200}
-          unmountOnExit
-          in={this.props.focus}
-          classNames={"fade"}
-        >
+        <CSSTransition appear timeout={200} unmountOnExit in={this.props.focus} classNames={'fade'}>
           <SearchContent>
             <SearchContentTitle>
               热门搜索<SearchContentSwitch>换一批</SearchContentSwitch>
@@ -43,63 +37,59 @@ class Header extends Component {
             </SearchItemWrapper>
           </SearchContent>
         </CSSTransition>
-      );
+      )
     } else {
-      return null;
+      return null
     }
-  };
+  }
   render() {
-    const { focus, inputFocus, inputBlur } = this.props;
+    const { focus, inputFocus, inputBlur } = this.props
     return (
       <HeaderWrapper>
         <Logo />
         <HeadHav>
-          <HeadNavItem className={"left active"}>首页</HeadNavItem>
-          <HeadNavItem className={"left"}>下载APP</HeadNavItem>
-          <HeadNavItem className={"right"}>登录</HeadNavItem>
-          <HeadNavItem className={"right"}>
-            <i className={"iconfont icon-size"}>&#xe636;</i>
+          <HeadNavItem className={'left active'}>首页</HeadNavItem>
+          <HeadNavItem className={'left'}>下载APP</HeadNavItem>
+          <HeadNavItem className={'right'}>登录</HeadNavItem>
+          <HeadNavItem className={'right'}>
+            <i className={'iconfont icon-size'}>&#xe636;</i>
           </HeadNavItem>
           <SearchWrapper>
-            <CSSTransition timeout={200} in={focus} classNames={"slide"}>
-              <NavSearch
-                onFocus={inputFocus}
-                onBlur={inputBlur}
-                className={focus ? "focus" : ""}
-              />
+            <CSSTransition timeout={200} in={focus} classNames={'slide'}>
+              <NavSearch onFocus={inputFocus} onBlur={inputBlur} className={focus ? 'focus' : ''} />
             </CSSTransition>
-            <i className={focus ? "focus iconfont" : "iconfont"}>&#xe614;</i>
+            <i className={focus ? 'focus iconfont' : 'iconfont'}>&#xe614;</i>
             {this.showSearchArea(focus)}
           </SearchWrapper>
 
           <Addition>
-            <Button className={"write-article"}>
-              <i className={"iconfont"}>&#xe615;</i>
+            <Button className={'write-article'}>
+              <i className={'iconfont'}>&#xe615;</i>
               写文章
             </Button>
-            <Button className={"reg"}>注册</Button>
+            <Button className={'reg'}>注册</Button>
           </Addition>
         </HeadHav>
       </HeaderWrapper>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    focus: state.getIn(["headerReducer", "focus"])
-  };
-};
+    focus: state.getIn(['headerReducer', 'focus'])
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     inputFocus() {
-      dispatch(actionCreators.searchFocus());
+      dispatch(actionCreators.searchFocus())
     },
     inputBlur() {
-      dispatch(actionCreators.searchBlur());
+      dispatch(actionCreators.searchBlur())
     }
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
