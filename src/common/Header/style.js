@@ -81,47 +81,7 @@ export const SearchContent = styled('div')`
   border: 1px solid #eeeeee;
   border-radius: 4px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  .fade-enter {
-    opacity: 0;
-  }
 
-  /*入场动画过程*/
-  .fade-enter-active {
-    opacity: 1;
-    transition: opacity 1s ease-in;
-  }
-
-  /*入场动画结束*/
-  .fade-enter-done {
-    opacity: 1;
-  }
-
-  /*离场动画开始*/
-  &.fade-exit {
-    opacity: 1;
-  }
-
-  /*离场动画过程*/
-  &.fade-exit-active {
-    opacity: 0;
-    transition: opacity 1s ease-in;
-  }
-
-  /*离场动画结束*/
-  &.fade-exit-done {
-    opacity: 0;
-  }
-
-  /*页面第一次加载时的开始状态*/
-  &.fade-appear {
-    opacity: 0;
-  }
-
-  /*页面第一次加载时的动画过程*/
-  &.fade-appear-active {
-    opacity: 1;
-    transition: opacity 2s ease-in;
-  }
   &:before {
     content: '';
     position: absolute;
@@ -146,6 +106,10 @@ export const SearchContentSwitch = styled('span')`
   font-size: 13px;
   color: #969696;
   float: right;
+  cursor: pointer;
+  &:hover {
+    color: #333;
+  }
 `
 
 export const SearchItemWrapper = styled('div')`

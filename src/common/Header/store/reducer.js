@@ -8,5 +8,9 @@ export default (state = defaultState, action) => {
   if (action.type === types.SEARCH_BLUR) {
     return state.set('focus', false)
   }
+
+  if(action.type === types.SEARCH_LIST) {
+    return state.set('list', action.list)
+  }
   return state
 }

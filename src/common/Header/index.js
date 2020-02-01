@@ -17,26 +17,22 @@ import {
 } from './style'
 import { CSSTransition } from 'react-transition-group'
 import { actionCreators } from './store'
+import { toJS } from 'immutable'
 
 class Header extends Component {
-  showSearchArea = show => {
-    if (show) {
+  showSearchArea = () => {
+    if (this.props.focus) {
       return (
-        <CSSTransition appear timeout={200} unmountOnExit in={this.props.focus} classNames={'fade'}>
-          <SearchContent>
-            <SearchContentTitle>
-              热门搜索<SearchContentSwitch>换一批</SearchContentSwitch>
-            </SearchContentTitle>
-            <SearchItemWrapper>
-              <SearchItem>教育</SearchItem>
-              <SearchItem>教深度育</SearchItem>
-              <SearchItem>教深度育</SearchItem>
-              <SearchItem>教的育</SearchItem>
-              <SearchItem>教肥嘟嘟育</SearchItem>
-              <SearchItem>教颠三倒四发福育</SearchItem>
-            </SearchItemWrapper>
-          </SearchContent>
-        </CSSTransition>
+        <SearchContent>
+          <SearchContentTitle>
+            热门搜索<SearchContentSwitch>换一批</SearchContentSwitch>
+          </SearchContentTitle>
+          <SearchItemWrapper>
+            {this.props.list.toJS().map((item, index) => {
+              return <SearchItem key={index}>{item.content}</SearchItem>
+            })}
+          </SearchItemWrapper>
+        </SearchContent>
       )
     } else {
       return null
@@ -59,7 +55,7 @@ class Header extends Component {
               <NavSearch onFocus={inputFocus} onBlur={inputBlur} className={focus ? 'focus' : ''} />
             </CSSTransition>
             <i className={focus ? 'focus iconfont' : 'iconfont'}>&#xe614;</i>
-            {this.showSearchArea(focus)}
+            {this.showSearchArea()}
           </SearchWrapper>
 
           <Addition>
@@ -77,13 +73,15 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    focus: state.getIn(['headerReducer', 'focus'])
+    focus: state.getIn(['headerReducer', 'focus']),
+    list: state.getIn(['headerReducer', 'list'])
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     inputFocus() {
+      dispatch(actionCreators.getSearchList())
       dispatch(actionCreators.searchFocus())
     },
     inputBlur() {
