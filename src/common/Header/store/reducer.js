@@ -3,10 +3,10 @@ import * as types from './action-types'
 
 export default (state = defaultState, action) => {
   if (action.type === types.SEARCH_FOCUS) {
-    if (action.page !== 0) {
+    if (action.page !== 1) {
       return state.merge({
         focus: true,
-        page: 0
+        page: 1
       })
     } else {
       return state.set('focus', true)

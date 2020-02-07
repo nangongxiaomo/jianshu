@@ -4,7 +4,7 @@ const state = fromJS({
   focus: false,
   list: [],
   mouseIn: false,
-  page: 0,
+  page: 1,
   totalPage: 1
 })
 

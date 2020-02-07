@@ -24,7 +24,7 @@ class Header extends Component {
     const convertList = list.toJS()
     const newList = []
     if (convertList.length) {
-      for (let i = page * 10; i < (page + 1) * 10; i++) {
+      for (let i = (page - 1) * 10; i < page * 10; i++) {
         convertList[i] &&
           newList.push(<SearchItem key={convertList[i]}>{convertList[i]}</SearchItem>)
       }
@@ -109,10 +109,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionCreators.mouseLeave())
     },
     changePage(page, totalPage) {
-      if (page < totalPage - 1) {
+      if (page < totalPage) {
         dispatch(actionCreators.changePage(page + 1))
       } else {
-        dispatch(actionCreators.changePage(0))
+        dispatch(actionCreators.changePage(1))
       }
     }
   }
