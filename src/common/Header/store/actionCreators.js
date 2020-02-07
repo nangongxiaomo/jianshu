@@ -3,8 +3,9 @@ import { getHeaderSearchList } from '../../../http/api'
 import { ERR_OK } from '../../../http/config'
 import { fromJS } from 'immutable'
 
-export const searchFocus = () => ({
-  type: types.SEARCH_FOCUS
+export const searchFocus = page => ({
+  type: types.SEARCH_FOCUS,
+  page
 })
 
 export const searchBlur = () => ({
@@ -21,7 +22,21 @@ export const getSearchList = () => {
   }
 }
 
+export const mouseEnter = () => ({
+  type: types.MOUSE_ENTER
+})
+
+export const mouseLeave = () => ({
+  type: types.MOUSE_LEAVE
+})
+
+export const changePage = page => ({
+  type: types.CHANGE_PAGE,
+  page
+})
+
 const _submitSearchList = list => ({
   type: types.SEARCH_LIST,
-  list: fromJS(list)
+  list: fromJS(list),
+  totalPage: Math.ceil(list.length / 10)
 })

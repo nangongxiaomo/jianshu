@@ -17,21 +17,29 @@ import {
 } from './style'
 import { CSSTransition } from 'react-transition-group'
 import { actionCreators } from './store'
-import { toJS } from 'immutable'
 
 class Header extends Component {
   showSearchArea = () => {
-    if (this.props.focus) {
+    const { focus, mouseIn, list, page, totalPage, mouseEnter, mouseLeave, changePage } = this.props
+    const convertList = list.toJS()
+    const newList = []
+    if (convertList.length) {
+      for (let i = page * 10; i < (page + 1) * 10; i++) {
+        convertList[i] &&
+          newList.push(<SearchItem key={convertList[i]}>{convertList[i]}</SearchItem>)
+      }
+    }
+    if (focus || mouseIn) {
       return (
-        <SearchContent>
+        <SearchContent onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
           <SearchContentTitle>
-            热门搜索<SearchContentSwitch>换一批</SearchContentSwitch>
+            热门搜索
+            <SearchContentSwitch onClick={() => changePage(page, totalPage)}>
+              换一批
+            </SearchContentSwitch>
+            <img className='refresh-icon' src={require('../../assets/images/刷新.svg')} alt='' />
           </SearchContentTitle>
-          <SearchItemWrapper>
-            {this.props.list.toJS().map((item, index) => {
-              return <SearchItem key={index}>{item.content}</SearchItem>
-            })}
-          </SearchItemWrapper>
+          <SearchItemWrapper>{newList}</SearchItemWrapper>
         </SearchContent>
       )
     } else {
@@ -39,7 +47,7 @@ class Header extends Component {
     }
   }
   render() {
-    const { focus, inputFocus, inputBlur } = this.props
+    const { focus, inputFocus, inputBlur, list, page } = this.props
     return (
       <HeaderWrapper>
         <Logo />
@@ -52,7 +60,11 @@ class Header extends Component {
           </HeadNavItem>
           <SearchWrapper>
             <CSSTransition timeout={200} in={focus} classNames={'slide'}>
-              <NavSearch onFocus={inputFocus} onBlur={inputBlur} className={focus ? 'focus' : ''} />
+              <NavSearch
+                onFocus={() => inputFocus(list, page)}
+                onBlur={inputBlur}
+                className={focus ? 'focus' : ''}
+              />
             </CSSTransition>
             <i className={focus ? 'focus iconfont' : 'iconfont'}>&#xe614;</i>
             {this.showSearchArea()}
@@ -74,18 +86,34 @@ class Header extends Component {
 const mapStateToProps = state => {
   return {
     focus: state.getIn(['headerReducer', 'focus']),
-    list: state.getIn(['headerReducer', 'list'])
+    list: state.getIn(['headerReducer', 'list']),
+    mouseIn: state.getIn(['headerReducer', 'mouseIn']),
+    page: state.getIn(['headerReducer', 'page']),
+    totalPage: state.getIn(['headerReducer', 'totalPage'])
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    inputFocus() {
-      dispatch(actionCreators.getSearchList())
-      dispatch(actionCreators.searchFocus())
+    inputFocus(list, page) {
+      list.size === 0 && dispatch(actionCreators.getSearchList())
+      dispatch(actionCreators.searchFocus(page))
     },
     inputBlur() {
       dispatch(actionCreators.searchBlur())
+    },
+    mouseEnter() {
+      dispatch(actionCreators.mouseEnter())
+    },
+    mouseLeave() {
+      dispatch(actionCreators.mouseLeave())
+    },
+    changePage(page, totalPage) {
+      if (page < totalPage - 1) {
+        dispatch(actionCreators.changePage(page + 1))
+      } else {
+        dispatch(actionCreators.changePage(0))
+      }
     }
   }
 }

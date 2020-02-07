@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.timeout = '10000'
-axios.defaults.baseURL = 'https://easy-mock.com/mock/5e09ca2b08f7e84791397423/react'
+// axios.defaults.baseURL = 'https://easy-mock.com/mock/5e09ca2b08f7e84791397423/react'
 
 export function get(url, params) {
   return new Promise((resolve, reject) => {

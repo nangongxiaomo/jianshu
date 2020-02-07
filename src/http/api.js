@@ -1,3 +1,3 @@
 import { get } from './http'
 
-export const getHeaderSearchList = () => get('/api/search/list')
+export const getHeaderSearchList = () => get('/api/searchList')

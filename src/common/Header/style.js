@@ -99,6 +99,16 @@ export const SearchContentTitle = styled('p')`
   margin-bottom: 10px;
   font-size: 14px;
   color: #969696;
+  .refresh-icon {
+    float: right;
+    margin-right: 3px;
+    transition: transform 0.5s;
+  }
+  &:active {
+    .refresh-icon {
+      transform: rotate(360deg);
+    }
+  }
 `
 
 export const SearchContentSwitch = styled('span')`
