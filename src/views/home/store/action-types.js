@@ -1,0 +1,1 @@
+export const LABELS_LIST = 'LABELS_LIST'
